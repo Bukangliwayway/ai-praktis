@@ -1,8 +1,15 @@
-/** @type { import("drizzle-kit").Config } */
-export default {
-  schema: "./utils/schema.js",
+import dotenv from "dotenv";
+import { defineConfig } from "drizzle-kit";
+
+dotenv.config({ path: ".env.local" });
+
+export default defineConfig({
+  schema: "./utils/schema/index.js",
+  out: "./utils/migrations",
   dialect: "postgresql",
   dbCredentials: {
-    url: "postgresql://ai-trial_owner:MSs3WRTBYra0@ep-long-feather-a1ldmbqs-pooler.ap-southeast-1.aws.neon.tech/ai-trial?sslmode=require",
+    url: process.env.NEXT_DRIZZLE_DATABASE_URL,
   },
-};
+  verbose: true,
+  strict: true,
+});

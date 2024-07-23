@@ -3,8 +3,7 @@ CREATE TABLE IF NOT EXISTS "manipulation" (
 	"name" varchar NOT NULL,
 	"desc" text NOT NULL,
 	"image_link" varchar NOT NULL,
-	"created_time" timestamp DEFAULT 'now()' NOT NULL,
-	"created_by" varchar NOT NULL
+	"created_time" timestamp DEFAULT 'now()' NOT NULL
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "test" (
@@ -12,8 +11,7 @@ CREATE TABLE IF NOT EXISTS "test" (
 	"email" varchar NOT NULL,
 	"scenario_prompt" text NOT NULL,
 	"total_score" integer NOT NULL,
-	"created_time" timestamp DEFAULT 'now()' NOT NULL,
-	"created_by" varchar NOT NULL
+	"created_time" timestamp DEFAULT 'now()' NOT NULL
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "testItem" (
@@ -25,8 +23,7 @@ CREATE TABLE IF NOT EXISTS "testItem" (
 	"ai_explanation" text NOT NULL,
 	"grade_justification" text NOT NULL,
 	"grade" integer NOT NULL,
-	"created_time" timestamp DEFAULT 'now()' NOT NULL,
-	"created_by" varchar NOT NULL
+	"created_time" timestamp DEFAULT 'now()' NOT NULL
 );
 --> statement-breakpoint
 DO $$ BEGIN

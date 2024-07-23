@@ -18,7 +18,6 @@ const test = pgTable(
     created_time: timestamp("created_time", { mode: "string" })
       .notNull()
       .default("now()"),
-    created_by: varchar("created_by").notNull(),
   },
   (table) => ({
     email_index: index().on(table.email),

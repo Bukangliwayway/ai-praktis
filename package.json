@@ -9,6 +9,7 @@
     "lint": "next lint",
     "db:push": "npx drizzle-kit push",
     "db:migrate": "cross-env DB_MIGRATE=true tsx utils/migrate.mjs",
+    "db:seed": "cross-env DB_SEEDING=true tsx utils/seed.mjs",
     "db:studio": "npx drizzle-kit studio",
     "db:generate": "npx drizzle-kit generate"
   },

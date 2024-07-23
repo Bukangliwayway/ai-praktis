@@ -24,6 +24,7 @@ try {
   console.error("Migration failed:", error);
   process.exit(1);
 } finally {
-  await connection.end();
+  await connection?.end;
+
   console.log("Database connection closed.");
 }

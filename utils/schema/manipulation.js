@@ -3,7 +3,6 @@ import {
   pgTable,
   text,
   varchar,
-  integer,
   timestamp,
 } from "drizzle-orm/pg-core";
 
@@ -15,7 +14,6 @@ const manipulation = pgTable("manipulation", {
   created_time: timestamp("created_time", { mode: "string" })
     .notNull()
     .default("now()"),
-  created_by: varchar("created_by").notNull(),
 });
 
 export default manipulation;

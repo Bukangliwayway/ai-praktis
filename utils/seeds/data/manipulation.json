@@ -1,0 +1,52 @@
+[
+  {
+    "name": "Gaslighting",
+    "desc": "Psychological manipulation where the abuser makes the victim question their own perceptions, memories, and sanity. The gaslighter denies or distorts reality, causing the victim to doubt themselves and become increasingly dependent on the manipulator's version of events.",
+    "image_link": "/manipulations/gaslight.webp"
+  },
+  {
+    "name": "Guilt Tripping",
+    "desc": "Using guilt, fear, or obligation to control someone's behavior. The manipulator threatens negative consequences or withholds affection unless their demands are met. This creates a cycle of compliance and emotional distress in the victim.",
+    "image_link": "/manipulations/guilttrip.webp"
+  },
+  {
+    "name": "Love Bombing",
+    "desc": "An intense, overwhelming display of affection and attention at the beginning of a relationship. The manipulator showers the victim with praise, gifts, and constant contact to quickly create emotional dependency and attachment, setting the stage for future control.",
+    "image_link": "/manipulations/lovebombing.webp"
+  },
+  {
+    "name": "Social Isolation",
+    "desc": "Gradually cutting off the victim's connections to friends, family, and support systems. The manipulator may criticize relationships, create conflicts, or demand exclusive attention. This increases the victim's dependence on the abuser and limits outside perspectives.",
+    "image_link": "/manipulations/isolation.webp"
+  },
+  {
+    "name": "Passive-Aggressive Behavior",
+    "desc": "Indirectly expressing negative feelings or resistance through subtle actions rather than direct communication. This can include silent treatment, sarcasm, or deliberate inefficiency. It creates confusion and frustration, making it difficult for the victim to address issues directly.",
+    "image_link": "/manipulations/passiveagressive.webp"
+  },
+  {
+    "name": "Playing the Victim",
+    "desc": "The manipulator portrays themselves as the victim in situations, even when they're the aggressor. This deflects responsibility, garners sympathy, and makes the actual victim feel guilty or obligated to provide support, despite being mistreated.",
+    "image_link": "/manipulations/playingthevictim.webp"
+  },
+  {
+    "name": "Deception",
+    "desc": "Deliberately misleading or withholding information to maintain control or avoid consequences. This erodes trust and creates an imbalance of power in the relationship, as the victim operates with incomplete or false information.",
+    "image_link": "/manipulations/deception.webp"
+  },
+  {
+    "name": "Triangulation",
+    "desc": "Involving a third party in a conflict or relationship dynamic to create jealousy, insecurity, or to deflect attention from the manipulator's behavior. This can include comparisons, gossiping, or using others as messengers.",
+    "image_link": "/manipulations/triangulation.webp"
+  },
+  {
+    "name": "Emotional Manipulation",
+    "desc": "Unpredictable emotional reactions, including outbursts of anger or excessive displays of hurt. This keeps the victim in a state of anxiety, always trying to manage the manipulator's emotions and walking on eggshells.",
+    "image_link": "/manipulations/emotionalmanipulation.webp"
+  },
+  {
+    "name": "Moving the Goalposts",
+    "desc": "Continually changing expectations or rules in a relationship. As soon as one demand is met, another is introduced. This creates a sense of never being good enough and keeps the victim constantly striving for approval.",
+    "image_link": "/manipulations/movingthegoalpost.webp"
+  }
+]

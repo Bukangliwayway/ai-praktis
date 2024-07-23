@@ -13,23 +13,16 @@ if (!process.env.NEXT_DRIZZLE_SEEDING) {
   throw new Error('You must set DB_SEEDING to "true" when running seeds');
 }
 
-// async function resetTable(db, table) {
-//   const tableName = getTableName(table);
-//   return db.execute(
-//     sql.raw(`TRUNCATE TABLE ${tableName} RESTART IDENTITY CASCADE`)
-//   );
-// }
+async function resetTable(db, table) {
+  const tableName = getTableName(table);
+  return db.execute(
+    sql.raw(`TRUNCATE TABLE \"${tableName}\" RESTART IDENTITY CASCADE`)
+  );
+}
 
-// for (const table of [schema.manipulation, schema.test, schema.testItem]) {
-//   await resetTable(db, table);
-// }
-
-//iganto mo munaa taenang bug kase yann
-db.execute(
-  sql.raw(`TRUNCATE TABLE manipulation RESTART IDENTITY CASCADE`),
-  sql.raw(`TRUNCATE TABLE test RESTART IDENTITY CASCADE`),
-  sql.raw(`TRUNCATE TABLE testItem RESTART IDENTITY CASCADE`)
-);
+for (const table of [schema.manipulation, schema.test, schema.testItem]) {
+  await resetTable(db, table);
+}
 
 await seeds.manipulation(db);
 await seeds.test(db);

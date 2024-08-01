@@ -1,5 +1,5 @@
 "use client";
-import { chatSession } from "@/utils/AIPrompts/AIGeminiModal";
+import { chatSession } from "@/server/AIGeminiModal";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 

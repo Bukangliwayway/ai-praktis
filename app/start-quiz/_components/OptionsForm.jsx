@@ -5,25 +5,29 @@ import { Textarea } from "@/components/ui/textarea";
 import React, { useEffect, useState } from "react";
 import ManipulationCard from "./ManipulationCard";
 import { useToast } from "@/components/ui/use-toast";
-import { chatSession } from "@/utils/AIPrompts/AIGeminiModal";
+import { chatSession } from "@/server/AIGeminiModal";
+import { getManipulations } from "@/server/Manipulations";
+import { createQuiz } from "@/server/CreateQuiz";
 
 const OptionsForm = ({ questions }) => {
   const [answers, setAnswers] = useState([]);
   const [manipulations, setManipulations] = useState([]);
   const [selectedManipulations, setSelectedManipulations] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [isFormLoading, setIsFormLoading] = useState(true);
 
   const { toast } = useToast();
 
   useEffect(() => {
     const fetchManipulations = async () => {
       try {
-        const res = await fetch("/api/manipulations");
-        if (!res.ok) {
+        const { error, success } = await getManipulations();
+        if (error) {
           throw new Error(`HTTP error! status: ${res.status}`);
         }
-        const data = await res.json();
-        setManipulations(data);
+        if (success) {
+          setManipulations(success);
+        }
       } catch (error) {
         console.error("Error fetching manipulations:", error);
       } finally {
@@ -47,8 +51,8 @@ const OptionsForm = ({ questions }) => {
   const populateQuiz = async () => {
     const prompt = `
 
-Create a relationship quiz based on the following situation and requirements:
-User's Current Relationship situation: To be determined from the following three answers:
+Create a relationship quiz based on the User's Current Relationship situation: To be determined from the following three answers:
+
 ${questions
   .map((question, index) => `${index + 1}. ${question} \n${answers[index]}`)
   .join("\n")}
@@ -60,9 +64,11 @@ Quiz Structure:
 Question Requirements:
 - Exactly 50 words long
 - Written in first-person perspective (I/me)
-- Describe a tricky, nuanced situation that's challenging to analyze
-- Subtly represent one of the manipulation types or no manipulation
+- Describe a tricky, nuanced situation that's challenging to analyze, especially have a scenario that is not black and white and includes some ambiguity
+- Ensure at least one question subtly tests whether a situation involves manipulation or not.
 - Relate to the user's current situation when possible
+- If choices are more than 3 only pick three choices and add "Not a manipulation" as the fourth choice
+- Include as well the correct answer
 
 Answer Choices: For each question, provide these options:
 ${selectedManipulations
@@ -70,22 +76,29 @@ ${selectedManipulations
   .join(", ")}, plus "Not a manipulation"
 
 JSON Format:
-{questions:[{scenario:50-word first-person scenario here. Avoid quotation marks, newlines, and special characters. Use single space between sentences. If dialogue is needed, use reported speech.,choices:[samplechoice1, samplechoice2, samplechoice3 ,Not manipulation]}]}
-`;
+{
+  \"questions\": [
+    {
+    \"scenario\": \"50-word first-person scenario here. Avoid quotation marks, newlines, and special characters. Use single space between sentences. If dialogue is needed, use reported speech.\",
+    \"choices\": [
+      \"samplechoice1\",
+      \"samplechoice2\",
+      \"samplechoice3\",
+      \"Not manipulation.\"
+    ],
+    \"correct_answer\": \"correctchoice.\"
+  },
+]
+}`;
 
     try {
-      setIsLoading(true);
+      setIsFormLoading(true);
       const res = await chatSession.sendMessage(prompt);
-      // if (res) {
-      //   localStorage.setItem("quizContent", res.response.text());
-      //   router.push("/start-quiz");
-      // }
-      console.log(prompt);
-      console.log(res.response.text());
+      return res.response.text();
     } catch (error) {
       console.error(error);
     } finally {
-      setIsLoading(false);
+      setIsFormLoading(false);
     }
   };
 
@@ -98,9 +111,9 @@ JSON Format:
       });
       return;
     }
-    await populateQuiz();
-    console.log("Answers:", answers);
-    console.log("Selected Manipulations:", selectedManipulations);
+    const quiz = await populateQuiz();
+    const newTest = await createQuiz({ scenario_prompt: quiz });
+    console.log(newTest);
   };
 
   if (isLoading) {

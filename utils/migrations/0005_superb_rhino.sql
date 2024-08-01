@@ -1,0 +1,1 @@
+ALTER TABLE "testItem" RENAME COLUMN "answer" TO "correct_answer";

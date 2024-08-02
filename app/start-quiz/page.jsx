@@ -1,12 +1,10 @@
 "use client";
 
-import { chatSession } from "@/server/AIGeminiModal";
 import { HeartCrack } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import OptionsForm from "./_components/OptionsForm";
 const page = () => {
-  const searchParams = useSearchParams();
   const [questions, setQuestions] = useState([]);
 
   useEffect(() => {

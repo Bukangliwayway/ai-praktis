@@ -8,13 +8,16 @@ import { useToast } from "@/components/ui/use-toast";
 import { chatSession } from "@/server/AIGeminiModal";
 import { getManipulations } from "@/server/Manipulations";
 import { createQuiz } from "@/server/CreateQuiz";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 const OptionsForm = ({ questions }) => {
   const [answers, setAnswers] = useState([]);
   const [manipulations, setManipulations] = useState([]);
   const [selectedManipulations, setSelectedManipulations] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [isFormLoading, setIsFormLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isFormLoading, setIsFormLoading] = useState(false);
+  const router = useRouter();
 
   const { toast } = useToast();
 
@@ -65,7 +68,7 @@ Question Requirements:
 - Exactly 50 words long
 - Written in first-person perspective (I/me)
 - Describe a tricky, nuanced situation that's challenging to analyze, especially have a scenario that is not black and white and includes some ambiguity
-- Ensure at least one question subtly tests whether a situation involves manipulation or not.
+- Subtly represent one of the manipulation types or no manipulation
 - Relate to the user's current situation when possible
 - If choices are more than 3 only pick three choices and add "Not a manipulation" as the fourth choice
 - Include as well the correct answer
@@ -91,19 +94,14 @@ JSON Format:
 ]
 }`;
 
-    try {
-      setIsFormLoading(true);
-      const res = await chatSession.sendMessage(prompt);
-      return res.response.text();
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setIsFormLoading(false);
-    }
+    const res = await chatSession.sendMessage(prompt);
+    return res.response.text();
   };
 
   const onSubmit = async (e) => {
     e.preventDefault();
+    setIsFormLoading(true);
+
     if (selectedManipulations.length < 3) {
       toast({
         description: "Select at least 3 manipulations as choices for the quiz",
@@ -111,9 +109,16 @@ JSON Format:
       });
       return;
     }
-    const quiz = await populateQuiz();
-    const newTest = await createQuiz({ scenario_prompt: quiz });
-    console.log(newTest);
+    try {
+      const quiz = await populateQuiz();
+      const test_uuid = await createQuiz({ scenario_prompt: quiz });
+      console.log("test_uuid", test_uuid);
+      router.push(`/start-quiz/${test_uuid.success}`);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsFormLoading(false);
+    }
   };
 
   if (isLoading) {
@@ -164,8 +169,17 @@ JSON Format:
           ))}
         </div>
 
-        <Button type="submit" className="w-[70ch]">
-          Submit
+        <Button disabled={isFormLoading} type="submit" className="w-[70ch]">
+          {isFormLoading ? (
+            <Image
+              src="/motion-blur-2.svg"
+              width={100}
+              height={30}
+              alt="Mawaridashita"
+            />
+          ) : (
+            <h1>Submit</h1>
+          )}
         </Button>
       </div>
     </form>

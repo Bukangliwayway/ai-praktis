@@ -4,10 +4,10 @@ import ManipulationCard from "../_components/ManipulationCard";
 import { getManipulations } from "@/server/Manipulations";
 import { getTest } from "@/server/GetTest";
 import LoadingPage from "@/components/LoadingPage";
-import RecordAnswer from "./_components/RecordAnswer";
-import InputAnswer from "./_components/InputAnswer";
+import UserExplanation from "./_components/UserExplanation";
 const page = ({ params }) => {
   const [data, setData] = useState(null);
+  const [isChrome, setIsChrome] = useState(true);
   const [isLoading, setIsLoading] = useState(true);
   const [input, setInput] = useState("");
   const [manipulations, setManipulations] = useState([]);
@@ -88,6 +88,8 @@ const page = ({ params }) => {
     return (
       <div className="flex flex-col items-center justify-center">
         <h1>Question # {data.itemNumber}</h1>
+        {isChrome && <h1>nani</h1>}
+        {console.log(data)}
         <div>{data.items[0].question}</div>
         <div
           id="manipulations"
@@ -107,8 +109,7 @@ const page = ({ params }) => {
             ))}
         </div>
         <h1>{input}</h1>
-        <InputAnswer onChange={setInput} />
-        <RecordAnswer onChange={setInput} />
+        <UserExplanation onChange={setInput} textValue={input}/>
       </div>
     );
   }

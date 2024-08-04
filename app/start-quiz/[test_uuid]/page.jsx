@@ -4,9 +4,12 @@ import ManipulationCard from "../_components/ManipulationCard";
 import { getManipulations } from "@/server/Manipulations";
 import { getTest } from "@/server/GetTest";
 import LoadingPage from "@/components/LoadingPage";
+import RecordAnswer from "./_components/RecordAnswer";
+import InputAnswer from "./_components/InputAnswer";
 const page = ({ params }) => {
   const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [input, setInput] = useState("");
   const [manipulations, setManipulations] = useState([]);
   const [selectedManipulations, setSelectedManipulations] = useState([]);
 
@@ -20,7 +23,7 @@ const page = ({ params }) => {
         if (success) {
           success.push({
             name: "Not a manipulation",
-            desc: "???",
+            desc: "This scenario does not involve any manipulation tactics, and all actions and communications appear to be genuine and straightforward without any deceptive intent.",
             image_link: "https://via.placeholder.com/150",
           });
           setManipulations(success);
@@ -103,6 +106,9 @@ const page = ({ params }) => {
               />
             ))}
         </div>
+        <h1>{input}</h1>
+        <InputAnswer onChange={setInput} />
+        <RecordAnswer onChange={setInput} />
       </div>
     );
   }

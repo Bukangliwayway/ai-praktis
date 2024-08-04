@@ -18,7 +18,7 @@ const ManipulationCard = ({ manipulation, isSelected, onClick }) => {
         }`}
       ></div>
       <div className="relative z-10 text-center h-[30vh]">
-        <h1 className="text-white font-bold text-lg mb-2">
+        <h1 className="text-white font-bold text-lg mb-2 capitalize">
           {manipulation.name}
         </h1>
         <p className="text-white font-light w-[25ch] text-xs">
